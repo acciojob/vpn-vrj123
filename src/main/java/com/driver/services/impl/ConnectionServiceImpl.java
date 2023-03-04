@@ -25,7 +25,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         if (user.getServiceProviderList().size()>=1){
             throw new Exception("Already connected");
         }
-        if (user.getCountry().getCountryName().toString().equalsIgnoreCase(countryName)){
+        if (user.getOriginalCountry().getCountryName().toString().equalsIgnoreCase(countryName)){
             return user;
         }
         List<ServiceProvider> serviceProviders=user.getServiceProviderList();
@@ -88,9 +88,9 @@ public class ConnectionServiceImpl implements ConnectionService {
             code=receiver.getMaskedIP().substring(0,3);
         }
         else {
-            code=receiver.getCountry().getCode();
+            code=receiver.getOriginalCountry().getCode();
         }
-        if(sender.getCountry().getCode().equals(code)){
+        if(sender.getOriginalCountry().getCode().equals(code)){
             return sender;
         }
         CountryName countryName=null;
