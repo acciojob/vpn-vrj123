@@ -23,7 +23,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     public User connect(int userId, String countryName) throws Exception{
         User user=userRepository2.findById(userId).get();
         if (user.getConnected()){
-            throw new Exception("Already Connected");
+            throw new Exception("Already connected");
         }
 //        if (user.getServiceProviderList().size()>=1){
 //            throw new Exception("Already connected");
