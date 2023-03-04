@@ -23,6 +23,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User register(String username, String password, String countryName) throws Exception{
+        if(!(countryName.equalsIgnoreCase("ind") || countryName.equalsIgnoreCase("aus") || countryName.equalsIgnoreCase("chi") || countryName.equalsIgnoreCase("usa") || countryName.equalsIgnoreCase("jpn")) ) {
+            throw new Exception("Country not found");
+        }
         User user=new User();
         user.setPassword(password);
         user.setUsername(username);
@@ -50,7 +53,7 @@ public class UserServiceImpl implements UserService {
         }
 
         country.setUser(user);
-        user.setMaskedIp(null);
+//        user.setMaskedIp(null);
         user.setOriginalCountry(country);
         user.setConnected(false);
         String o_ip=country.getCode()+"."+userRepository3.save(user).getId();

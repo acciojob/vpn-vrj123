@@ -22,7 +22,7 @@ public class ConnectionServiceImpl implements ConnectionService {
     @Override
     public User connect(int userId, String countryName) throws Exception{
         User user=userRepository2.findById(userId).get();
-        if (user.getConnected()){
+        if (user.getMaskedIp() != null){
             throw new Exception("Already connected");
         }
 //        if (user.getServiceProviderList().size()>=1){
@@ -31,10 +31,10 @@ public class ConnectionServiceImpl implements ConnectionService {
         if (user.getOriginalCountry().getCountryName().toString().equalsIgnoreCase(countryName)){
             return user;
         }
-        List<ServiceProvider> serviceProviders=user.getServiceProviderList();
-        if (serviceProviders.size()==0){
+        if (user.getServiceProviderList()==null){
             throw new Exception("Unable to connect");
         }
+        List<ServiceProvider> serviceProviders=user.getServiceProviderList();
         int min=Integer.MAX_VALUE;
         ServiceProvider sp=null;
         Country c=null;
@@ -57,7 +57,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         Connection connection=new Connection();
         connection.setUser(user);
         connection.setServiceProvider(sp);
-        connection=connectionRepository2.save(connection);
+//        connection=connectionRepository2.save(connection);
 
         String m_ip=c.getCode()+"."+sp.getId()+"."+userId;
         user.setMaskedIp(m_ip);
@@ -66,7 +66,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         sp.getConnectionList().add(connection);
 
-//        userRepository2.save(user);
+        userRepository2.save(user);
         serviceProviderRepository2.save(sp);
         return user;
     }
@@ -87,7 +87,7 @@ public class ConnectionServiceImpl implements ConnectionService {
         User receiver=userRepository2.findById(receiverId).get();
         String code="";
 //        CountryName countryName=null;
-        if(receiver.getConnected()){
+        if(receiver.getMaskedIp() != null){
             code=receiver.getMaskedIp().substring(0,3);
         }
         else {
