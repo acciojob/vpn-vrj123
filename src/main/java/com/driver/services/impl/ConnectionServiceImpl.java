@@ -66,7 +66,7 @@ public class ConnectionServiceImpl implements ConnectionService {
 
         sp.getConnectionList().add(connection);
 
-//        userRepository2.save(user);
+        userRepository2.save(user);
         serviceProviderRepository2.save(sp);
         return user;
     }
