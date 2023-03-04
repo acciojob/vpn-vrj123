@@ -18,7 +18,7 @@ public class ServiceProvider {
     List<Connection> connectionList=new ArrayList<>();
     @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
     List<Country> countryList=new ArrayList<>();
-    @ManyToMany(mappedBy = "serviceProviderList")
+    @ManyToMany(mappedBy = "serviceProviderList", cascade = CascadeType.ALL)
     List<User> users=new ArrayList<>();
 
     public ServiceProvider() {
