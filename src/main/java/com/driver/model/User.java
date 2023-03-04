@@ -14,7 +14,7 @@ public class User {
     private String password;
     private String originalIp;
     private String maskedIp;
-    boolean connected;
+    Boolean connected;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     List<Connection> connectionList=new ArrayList<>();
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -66,11 +66,11 @@ public class User {
         this.maskedIp = maskedIp;
     }
 
-    public boolean getConnected() {
+    public Boolean getConnected() {
         return connected;
     }
 
-    public void setConnected(boolean connected) {
+    public void setConnected(Boolean connected) {
         this.connected = connected;
     }
 
